@@ -8,6 +8,9 @@
 target/
 
 mvnw*
+.classpath
+.project
+.settings/
 
 # BlueJ files
 *.ctxt
