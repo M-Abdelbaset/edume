@@ -17,8 +17,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
+import com.edume.EdumeApplication;
 import com.edume.entity.CourseCategoryEntity;
 import com.edume.model.CourseCategoryHolder;
 import com.edume.model.CourseCategoryHolder.CourseCategory;
@@ -30,7 +32,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 class CoursesServiceUnitTest {
 	
 	@Configuration
-	@AutoConfigureCache @EnableCaching
+	@Import({EdumeApplication.CacheConfig.class})
+	@AutoConfigureCache
 	@ComponentScan(basePackageClasses = CoursesService.class)
 	static class Config {}
 	

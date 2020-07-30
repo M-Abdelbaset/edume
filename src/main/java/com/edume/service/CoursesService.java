@@ -26,7 +26,6 @@ public class CoursesService {
 	@Transactional(readOnly = true)
 	public CourseCategoryHolder getCategories() {
 		List<CourseCategoryEntity> CategoriesEntities = coursesRepo.findAll();
-
 		// convert entities to models ...
 		List<CourseCategory> allCategories = getAllCategories(CategoriesEntities);
 
