@@ -18,13 +18,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @DataJpaTest
 @ActiveProfiles("dev")
-@Sql(scripts = {"classpath:categories.sql"}) // data setup script
 class CoursesRepositoryIntegrationTest {
 
 	@Autowired CoursesRepository coursesRepository;
 	@Autowired JdbcTemplate testTemplate;
 	
 	@Test
+	@Sql(scripts = {"classpath:categories.sql"})
 	void whenQueryCategories_thenReturnAll() {
 		// setup
 		int rowsCount = JdbcTestUtils.countRowsInTable(testTemplate, "course_category");

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +20,10 @@ import com.edume.repository.CoursesRepository;
 public class CoursesService {
 
 	@Autowired
-	CoursesRepository coursesRepo;
+	private CoursesRepository coursesRepo;
 
-//	@Cacheable
-	@Transactional
+	@Cacheable("categories-cache")
+	@Transactional(readOnly = true)
 	public CourseCategoryHolder getCategories() {
 		List<CourseCategoryEntity> CategoriesEntities = coursesRepo.findAll();
 

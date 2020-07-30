@@ -4,13 +4,12 @@ import java.util.List;
 import java.util.Objects;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Data
+@RequiredArgsConstructor @Getter
 public class CourseCategoryHolder {
 
 	private final List<CourseCategory> categories;
@@ -37,4 +36,5 @@ public class CourseCategoryHolder {
 			return Objects.hash(this.getCategoryId());
 		}
 	}
+	
 }

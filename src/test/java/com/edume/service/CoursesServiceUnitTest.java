@@ -9,11 +9,15 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.core.AutoConfigureCache;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import com.edume.entity.CourseCategoryEntity;
 import com.edume.model.CourseCategoryHolder;
@@ -22,18 +26,20 @@ import com.edume.repository.CoursesRepository;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@ExtendWith(MockitoExtension.class)
+@SpringJUnitConfig
 class CoursesServiceUnitTest {
-
-	@InjectMocks
-	CoursesService coursesService = new CoursesService();
 	
-	@Mock CoursesRepository coursesRepo;
+	@Configuration
+	@AutoConfigureCache @EnableCaching
+	@ComponentScan(basePackageClasses = CoursesService.class)
+	static class Config {}
+	
+	@Autowired CoursesService coursesService;
+	@MockBean CoursesRepository coursesRepo;
 	
 	@Test
 	void whenGetCategories_thenReturnAll() {
-	
-		// setup
+		
 		CourseCategoryEntity software = new CourseCategoryEntity(1, "SWE", "Software", null, null);
 		CourseCategoryEntity dev = new CourseCategoryEntity(2, "DEV", "Software development", software, null);
 		CourseCategoryEntity java = new CourseCategoryEntity(3, "JAV", "Java programming", dev, null);
@@ -43,9 +49,9 @@ class CoursesServiceUnitTest {
 		CourseCategoryEntity economics = new CourseCategoryEntity(7, "EC", "Economics", null, null);
 		CourseCategoryEntity sports = new CourseCategoryEntity(8, "SP", "Sports", null, null);
 		CourseCategoryEntity media = new CourseCategoryEntity(9, "MD", "Media", null, null);
-		List<CourseCategoryEntity> entities = List.of(software, dev, java, boot, python, c, economics, sports, media);
+		List<CourseCategoryEntity> testEntities = List.of(software, dev, java, boot, python, c, economics, sports, media);
 		
-		when(coursesRepo.findAll()).thenReturn(entities);
+		when(coursesRepo.findAll()).thenReturn(testEntities);
 		
 		// when
 		CourseCategoryHolder categories = coursesService.getCategories();
@@ -77,5 +83,18 @@ class CoursesServiceUnitTest {
 		assertThat(javCategory.getSubCategories(), hasItem(
 				new CourseCategory("SPR", ""))
 		);
+	}
+
+	@Test
+	void whenGetCategoriesCalledOnce_thenCacheCategories() {
+		
+		// when
+		CourseCategoryHolder holder1 = coursesService.getCategories();		
+		CourseCategoryHolder holder2 = coursesService.getCategories();
+		CourseCategoryHolder holder3 = coursesService.getCategories();
+		
+		// then
+		Assertions.assertTrue(holder1 == holder2); // same object returned
+		Assertions.assertTrue(holder1 == holder3); // same object returned
 	}
 }
