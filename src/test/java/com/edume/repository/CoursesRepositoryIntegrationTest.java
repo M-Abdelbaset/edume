@@ -34,43 +34,5 @@ class CoursesRepositoryIntegrationTest {
 		
 		// then
 		assertThat(actualCategories.size(), is(rowsCount));
-		
-		/*
-		// setup
-		CourseCategoryEntity software = new CourseCategoryEntity().withId("SWE");
-		CourseCategoryEntity dev = new CourseCategoryEntity().withId("DEV");
-		CourseCategoryEntity java = new CourseCategoryEntity().withId("JAV");
-		CourseCategoryEntity boot = new CourseCategoryEntity().withId("SPR");
-		CourseCategoryEntity python = new CourseCategoryEntity().withId("PYT");
-		CourseCategoryEntity c = new CourseCategoryEntity().withId("C");
-		CourseCategoryEntity economics = new CourseCategoryEntity().withId("EC");
-		CourseCategoryEntity sports = new CourseCategoryEntity().withId("SP");
-		CourseCategoryEntity media = new CourseCategoryEntity().withId("MD");
-		
-		// when
-		List<CourseCategoryEntity> actualCategories = coursesRepository.findAll();
-		
-		// then
-		assertThat(actualCategories.size(), is(9));
-		assertThat(actualCategories, hasItems(software, economics, sports, media)); // top nodes
-		
-		// check software sub categories
-		int swIndex = actualCategories.indexOf(software);
-		CourseCategoryEntity swCat = actualCategories.get(swIndex); 
-		assertThat(swCat.getSubCategories().size(), is(1));
-		assertThat(swCat.getSubCategories(), hasItem(dev));
-		
-		// check dev sub categories
-		int devIndex = swCat.getSubCategories().indexOf(dev);
-		CourseCategoryEntity devCat = swCat.getSubCategories().get(devIndex);
-		assertThat(devCat.getSubCategories().size(), is(3));
-		assertThat(devCat.getSubCategories(), hasItems(java, python, c));
-		
-		// check java sub categories
-		int javaIndex = devCat.getSubCategories().indexOf(java);
-		CourseCategoryEntity javaCat = devCat.getSubCategories().get(javaIndex);
-		assertThat(javaCat.getSubCategories().size(), is(1));
-		assertThat(javaCat.getSubCategories(), hasItem(boot));
-		*/
 	}
 }

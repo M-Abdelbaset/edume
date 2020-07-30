@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -29,18 +30,17 @@ public class CourseCategoryEntity {
 	private Integer id;
 	
 	@NaturalId
+	@NotNull
 	@Column(name = "category_id", unique = true, nullable = false)
 	private String categoryId;
 	
 	@Column(name = "category_name", unique = true, nullable = false)
+	@NotNull
 	private String categoryName;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_category")
 	private CourseCategoryEntity parentCategory;
-	
-//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "parentCategory", orphanRemoval = true)
-//	private List<CourseCategoryEntity> subCategories;
 	
 	@Version
 	private Short version;
