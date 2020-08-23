@@ -20,20 +20,20 @@ import com.edume.EdumeApplication;
 import com.edume.entity.CourseCategoryEntity;
 import com.edume.model.CourseCategoryHolder;
 import com.edume.model.CourseCategoryHolder.CourseCategory;
-import com.edume.repository.CoursesRepository;
+import com.edume.repository.CourseCategoryRepository;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @SpringJUnitConfig
 class CoursesServiceUnitTest {
 	
 	@Configuration
-	@Import({EdumeApplication.CacheConfig.class})
+	@Import({EdumeApplication.CacheConfiguration.class})
 	@AutoConfigureCache
 	@ComponentScan(basePackageClasses = CoursesService.class)
 	static class Config {}
 	
 	@Autowired CoursesService coursesService;
-	@MockBean CoursesRepository coursesRepo;
+	@MockBean CourseCategoryRepository coursesRepo;
 	
 	@Test
 	void whenGetCategories_thenReturnAll() {

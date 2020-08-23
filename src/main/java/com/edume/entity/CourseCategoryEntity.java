@@ -26,7 +26,7 @@ import lombok.Getter;
 public class CourseCategoryEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@NaturalId

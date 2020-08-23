@@ -14,13 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.edume.entity.CourseCategoryEntity;
 import com.edume.model.CourseCategoryHolder;
 import com.edume.model.CourseCategoryHolder.CourseCategory;
-import com.edume.repository.CoursesRepository;
+import com.edume.repository.CourseCategoryRepository;
 
 @Service
 public class CoursesService {
 
 	@Autowired
-	private CoursesRepository coursesRepo;
+	private CourseCategoryRepository coursesRepo;
 
 	@Cacheable("categories-cache")
 	@Transactional(readOnly = true)

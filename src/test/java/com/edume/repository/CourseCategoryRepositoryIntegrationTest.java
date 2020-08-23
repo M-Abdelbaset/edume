@@ -18,9 +18,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @DataJpaTest
 @ActiveProfiles("dev")
-class CoursesRepositoryIntegrationTest {
+class CourseCategoryRepositoryIntegrationTest {
 
-	@Autowired CoursesRepository coursesRepository;
+	@Autowired CourseCategoryRepository coursesRepository;
 	@Autowired JdbcTemplate testTemplate;
 	
 	@Test

@@ -2,13 +2,14 @@ package com.edume;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.edume.EdumeApplication.CacheConfiguration;
+
 @SpringBootApplication
-@Import({CacheConfig.class})
+@Import({CacheConfiguration.class})
 public class EdumeApplication {
 
 	public static void main(String[] args) {
@@ -17,5 +18,5 @@ public class EdumeApplication {
 	
 	@Configuration
 	@EnableCaching
-	public static class CacheConfig {}
+	public static class CacheConfiguration {}
 }

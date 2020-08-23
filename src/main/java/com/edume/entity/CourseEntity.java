@@ -8,7 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -17,7 +20,7 @@ import org.hibernate.annotations.NaturalId;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-@Entity(name = "CourseEntity")
+//@Entity(name = "CourseEntity")
 @Table(name = "course")
 @Getter @RequiredArgsConstructor
 public class CourseEntity {
@@ -37,10 +40,23 @@ public class CourseEntity {
 	@NotNull
 	private BigDecimal price;
 	
+	@NotNull
+	@OneToOne
+	@JoinColumn(name = "category")
+	private CourseCategoryEntity category;
+	
 	@NotEmpty
 	private String tutor;
 	
 	private float rating;
+	
+	@Version
+	private Short version;
+	
+	public CourseEntity withId(Long id) {
+		this.id = id;
+		return this;
+	}
 	
 	public CourseEntity withDescription(String description) {
 		this.description = description;

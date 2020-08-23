@@ -1,24 +1,28 @@
 package com.edume.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Embeddable
-public class RelatedCoursesId {
+public class RelatedCoursesId implements Serializable {
 
-	@Column(name = "course")
-	@OneToOne(optional = false, orphanRemoval = true, cascade = CascadeType.ALL,
-			fetch = FetchType.LAZY, mappedBy = "id")
+	private static final long serialVersionUID = 1L;
+
+	@JoinColumn(name = "course")
+	@OneToOne
 	private CourseEntity course;
 	
-	@Column(name = "related_to")
-	@OneToOne(optional = false, orphanRemoval = true, cascade = CascadeType.ALL,
-			fetch = FetchType.LAZY, mappedBy = "id")
+	@JoinColumn(name = "related_to")
+	@OneToOne
 	private CourseEntity relatedTo;
+	
+	public RelatedCoursesId(Long courseId, Long relatedTo) {
+		this.course = new CourseEntity(null).withId(courseId);
+		this.relatedTo = new CourseEntity(null).withId(relatedTo);
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
