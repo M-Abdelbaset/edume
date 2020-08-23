@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edume.model.CourseCategoryHolder;
-import com.edume.service.CoursesService;
+import com.edume.service.CourseCategoryService;
 
 @RestController
 public class CoursesController {
@@ -15,7 +15,7 @@ public class CoursesController {
 	private static final String BASE_PATH = "/api/courses";
 	public static final String CATEGORIES_PATH = BASE_PATH + "/category";
 	
-	@Autowired private CoursesService coursesService;
+	@Autowired private CourseCategoryService coursesService;
 	
 	@GetMapping(path = CoursesController.CATEGORIES_PATH, 
 			produces = MediaType.APPLICATION_JSON_VALUE)

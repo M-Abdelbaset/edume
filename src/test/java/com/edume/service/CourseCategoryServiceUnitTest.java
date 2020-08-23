@@ -6,7 +6,9 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.mockito.Mockito.when;
+
 import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,37 +18,39 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
 import com.edume.EdumeApplication;
 import com.edume.entity.CourseCategoryEntity;
 import com.edume.model.CourseCategoryHolder;
 import com.edume.model.CourseCategoryHolder.CourseCategory;
 import com.edume.repository.CourseCategoryRepository;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @SpringJUnitConfig
-class CoursesServiceUnitTest {
+class CourseCategoryServiceUnitTest {
 	
 	@Configuration
 	@Import({EdumeApplication.CacheConfiguration.class})
 	@AutoConfigureCache
-	@ComponentScan(basePackageClasses = CoursesService.class)
+	@ComponentScan(basePackageClasses = CourseCategoryService.class)
 	static class Config {}
 	
-	@Autowired CoursesService coursesService;
+	@Autowired CourseCategoryService coursesService;
 	@MockBean CourseCategoryRepository coursesRepo;
 	
 	@Test
 	void whenGetCategories_thenReturnAll() {
 		
-		CourseCategoryEntity software = new CourseCategoryEntity(1, "SWE", "Software", null, null);
-		CourseCategoryEntity dev = new CourseCategoryEntity(2, "DEV", "Software development", software, null);
-		CourseCategoryEntity java = new CourseCategoryEntity(3, "JAV", "Java programming", dev, null);
-		CourseCategoryEntity boot = new CourseCategoryEntity(4, "SPR", "spring boot", java, null);
-		CourseCategoryEntity python = new CourseCategoryEntity(5, "PYT", "Python programming", dev, null);
-		CourseCategoryEntity c = new CourseCategoryEntity(6, "C", "C programming", dev, null);
-		CourseCategoryEntity economics = new CourseCategoryEntity(7, "EC", "Economics", null, null);
-		CourseCategoryEntity sports = new CourseCategoryEntity(8, "SP", "Sports", null, null);
-		CourseCategoryEntity media = new CourseCategoryEntity(9, "MD", "Media", null, null);
+		CourseCategoryEntity software = new CourseCategoryEntity("SWE").withCategoryId(1).withCategoryName("Software").withParentCategory(null);
+		CourseCategoryEntity dev = new CourseCategoryEntity("DEV").withCategoryId(2).withCategoryName("Software development").withParentCategory(software);
+		CourseCategoryEntity java = new CourseCategoryEntity("JAV").withCategoryId(3).withCategoryName("Java programming").withParentCategory(dev);
+		CourseCategoryEntity boot = new CourseCategoryEntity("SPR").withCategoryId(4).withCategoryName("spring boot").withParentCategory(java);
+		CourseCategoryEntity python = new CourseCategoryEntity("PYT").withCategoryId(5).withCategoryName("Python programming").withParentCategory(dev);
+		CourseCategoryEntity c = new CourseCategoryEntity("C").withCategoryId(6).withCategoryName("C programming").withParentCategory(dev);
+		CourseCategoryEntity economics = new CourseCategoryEntity("EC").withCategoryId(7).withCategoryName("Economics").withParentCategory(null);
+		CourseCategoryEntity sports = new CourseCategoryEntity("SP").withCategoryId(8).withCategoryName("Sports").withParentCategory(null);
+		CourseCategoryEntity media = new CourseCategoryEntity("MD").withCategoryId(9).withCategoryName("Media").withParentCategory(null);
 		List<CourseCategoryEntity> testEntities = List.of(software, dev, java, boot, python, c, economics, sports, media);
 		
 		when(coursesRepo.findAll()).thenReturn(testEntities);

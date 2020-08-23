@@ -17,12 +17,11 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.NaturalId;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Entity(name = "CourseCategoryEntity")
 @Table(name = "course_category")
-@Getter @AllArgsConstructor
+@Getter
 public class CourseCategoryEntity {
 	
 	@Id
@@ -42,11 +41,29 @@ public class CourseCategoryEntity {
 	@JoinColumn(name = "parent_category")
 	private CourseCategoryEntity parentCategory;
 	
+	public CourseCategoryEntity withCategoryId(Integer id) {
+		this.id = id;
+		return this;
+	}
+	
+	public CourseCategoryEntity withCategoryName(String name) {
+		this.categoryName = name;
+		return this;
+	}
+	
+	public CourseCategoryEntity withParentCategory(CourseCategoryEntity parentCategory) {
+		this.parentCategory = parentCategory;
+		return this;
+	}
+	
 	@Version
 	private Short version;
 	
-	@SuppressWarnings("unused")
-	private CourseCategoryEntity() {}
+	CourseCategoryEntity() {}
+	
+	public CourseCategoryEntity(String categoryId) {
+		this.categoryId = categoryId;
+	}
 	
 	@Override
 	public boolean equals(Object obj) {

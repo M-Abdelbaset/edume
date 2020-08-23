@@ -17,7 +17,7 @@ import com.edume.model.CourseCategoryHolder.CourseCategory;
 import com.edume.repository.CourseCategoryRepository;
 
 @Service
-public class CoursesService {
+public class CourseCategoryService {
 
 	@Autowired
 	private CourseCategoryRepository coursesRepo;

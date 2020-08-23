@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,11 +19,11 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.NaturalId;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
 @Entity(name = "CourseEntity")
 @Table(name = "course")
-@Getter @RequiredArgsConstructor
+@Getter @ToString
 public class CourseEntity {
 
 	@Id
@@ -32,20 +33,22 @@ public class CourseEntity {
 	@NaturalId
 	@NotEmpty
 	@Column(unique = true, nullable = false)
-	private final String name;
+	private String name;
 	
 	@NotEmpty
+	@Column(nullable = false)
 	private String description;
 	
 	@NotNull
 	private BigDecimal price;
 	
 	@NotNull
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category")
 	private CourseCategoryEntity category;
 	
 	@NotEmpty
+	@Column(nullable = false)
 	private String tutor;
 	
 	private float rating;
@@ -53,6 +56,13 @@ public class CourseEntity {
 	@Version
 	private Short version;
 	
+	@SuppressWarnings("unused")
+	private CourseEntity() {}
+	
+	public CourseEntity(String name) {
+		this.name = name;
+	}
+
 	public CourseEntity withId(Long id) {
 		this.id = id;
 		return this;
@@ -75,6 +85,11 @@ public class CourseEntity {
 	
 	public CourseEntity withRating(float rating) {
 		this.rating = rating;
+		return this;
+	}
+	
+	public CourseEntity withCategory(CourseCategoryEntity category) {
+		this.category = category;
 		return this;
 	}
 	

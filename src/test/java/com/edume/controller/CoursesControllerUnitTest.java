@@ -20,14 +20,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.edume.model.CourseCategoryHolder;
 import com.edume.model.CourseCategoryHolder.CourseCategory;
-import com.edume.service.CoursesService;
+import com.edume.service.CourseCategoryService;
 
 @ExtendWith(MockitoExtension.class)
 class CoursesControllerUnitTest {
 
 	MockMvc mockMvc;
 	
-	@Mock CoursesService coursesService;
+	@Mock CourseCategoryService coursesService;
 	@InjectMocks CoursesController coursesController;
 	
 	@BeforeEach
