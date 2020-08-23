@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.edume.entity.CourseEntity;
 
-//@Repository
+@Repository
 public interface CourseRepository extends JpaRepository<CourseEntity, Long> {
 
 }

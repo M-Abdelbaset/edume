@@ -20,7 +20,7 @@ import org.hibernate.annotations.NaturalId;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-//@Entity(name = "CourseEntity")
+@Entity(name = "CourseEntity")
 @Table(name = "course")
 @Getter @RequiredArgsConstructor
 public class CourseEntity {
