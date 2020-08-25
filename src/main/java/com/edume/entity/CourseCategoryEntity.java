@@ -41,6 +41,15 @@ public class CourseCategoryEntity {
 	@JoinColumn(name = "parent_category")
 	private CourseCategoryEntity parentCategory;
 	
+	@Version
+	private Short version;
+	
+	CourseCategoryEntity() {}
+	
+	public CourseCategoryEntity(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	
 	public CourseCategoryEntity withCategoryId(Integer id) {
 		this.id = id;
 		return this;
@@ -54,15 +63,6 @@ public class CourseCategoryEntity {
 	public CourseCategoryEntity withParentCategory(CourseCategoryEntity parentCategory) {
 		this.parentCategory = parentCategory;
 		return this;
-	}
-	
-	@Version
-	private Short version;
-	
-	CourseCategoryEntity() {}
-	
-	public CourseCategoryEntity(String categoryId) {
-		this.categoryId = categoryId;
 	}
 	
 	@Override

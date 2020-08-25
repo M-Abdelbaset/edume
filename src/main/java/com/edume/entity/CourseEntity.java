@@ -25,7 +25,7 @@ import lombok.ToString;
 @Table(name = "course")
 @Getter @ToString
 public class CourseEntity {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -57,7 +57,7 @@ public class CourseEntity {
 	private Short version;
 	
 	@SuppressWarnings("unused")
-	private CourseEntity() {}
+	CourseEntity() {}
 	
 	public CourseEntity(String name) {
 		this.name = name;
