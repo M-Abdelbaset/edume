@@ -70,8 +70,7 @@ class CoursesControllerUnitTest {
 		mockMvc.perform(get(CoursesController.CATEGORIES_PATH))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(content().json("{}"));
-		
+		.andExpect(content().json("{}"));	
 	}
 
 }
