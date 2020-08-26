@@ -2,12 +2,13 @@ package com.edume.endtoend;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+
 import java.math.BigDecimal;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.OptimisticLockException;
 
-import org.hibernate.StaleObjectStateException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.edume.model.Course;
 import com.edume.model.RelatedCourse;
 import com.edume.service.CourseService;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @SpringBootTest

@@ -1,12 +1,9 @@
 package com.edume.controller;
 
 import static com.edume.controller.RelatedCoursesController.RELATED_COURSES_PATH;
-import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +12,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -48,17 +44,26 @@ class RelatedCoursesControllerUnitTest {
 	}
 	
 	@Test
-	void whenRelatedCourse_thenOk() throws Exception {
+	void whenNewRelatedCourse_thenCreated() throws Exception {
 		
-		RelatedCourse relatedCourse = new RelatedCourse(new Course("test course"), 15);
+		RelatedCourse relatedCourse = new RelatedCourse(new Course("test"), 1);
 		when(courseService.addRelatedCourse(any(Course.class), any(Course.class))).thenReturn(relatedCourse);
 		
 		mockMvc.perform(post(RELATED_COURSES_PATH)
 				.param("courseName", "a").param("courseCat", "x")
 				.param("relatedToName", "a").param("relatedToCat", "x"))
-		.andExpect(status().isOk())
-		.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-		.andExpect(jsonPath("$.course.name", is("test course")))
-		.andExpect(jsonPath("$.votes", is(15)));
+		.andExpect(status().is(201));
+	}
+	
+	@Test
+	void whenExistingRelatedCourse_thenUpdated() throws Exception {
+		
+		RelatedCourse relatedCourse = new RelatedCourse(new Course("test"), 29);
+		when(courseService.addRelatedCourse(any(Course.class), any(Course.class))).thenReturn(relatedCourse);
+				
+		mockMvc.perform(post(RELATED_COURSES_PATH)
+				.param("courseName", "a").param("courseCat", "x")
+				.param("relatedToName", "a").param("relatedToCat", "x"))
+		.andExpect(status().is(204));
 	}
 }

@@ -21,7 +21,7 @@ public class RelatedCoursesController {
 	
 	@PostMapping(path = RelatedCoursesController.RELATED_COURSES_PATH, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RelatedCourse> addRelatedCourse(
+	public ResponseEntity<Void> addRelatedCourse(
 			@RequestParam("courseName") String courseName,
 			@RequestParam("courseCat") String courseCat,
 			@RequestParam("relatedToName") String relatedToName,
@@ -33,7 +33,9 @@ public class RelatedCoursesController {
 		
 		if(relatedCourse == null)
 			return ResponseEntity.badRequest().build();
+		else if(relatedCourse.getVotes() == 1) // new related course added
+			return ResponseEntity.created(null).build();
 		else
-			return ResponseEntity.ok(relatedCourse);
+			return ResponseEntity.noContent().build(); // votes updated
 	}
 }
